@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: alkebulanx-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_NAME
+        value: AlkebulanX
+      - key: ENVIRONMENT
+        value: production
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "1440"
+      - key: FRONTEND_BASE_URL
+        value: https://alkebulan-x.vercel.app
+      - key: FRONTEND_URL
+        value: https://alkebulan-x.vercel.app
+      - key: USE_LIVE_FLUTTERWAVE
+        value: "true"
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PREMIUM_PRICE_ID
+        sync: false
+      - key: STRIPE_BUSINESS_PRICE_ID
+        sync: false
+      - key: FLUTTERWAVE_SECRET_KEY
+        sync: false
+      - key: FLUTTERWAVE_PUBLIC_KEY
+        sync: false
+      - key: FLUTTERWAVE_WEBHOOK_SECRET
+        sync: false

@@ -111,6 +111,8 @@ Frontend variables live in `frontend/.env`. Start from `frontend/.env.example`.
 | --- | --- |
 | `VITE_API_BASE_URL` | Base URL for the FastAPI backend |
 
+Only browser-safe frontend variables should be configured in Vercel, and Vite only exposes variables prefixed with `VITE_`. Keep `SECRET_KEY`, `DATABASE_URL`, `STRIPE_SECRET_KEY`, Flutterwave secret keys, and AI/API secrets in the backend runtime only.
+
 ## API Overview
 
 The backend exposes these route groups:
@@ -157,9 +159,12 @@ python -m compileall -q app
 
 ## Deployment Notes
 
-- Build the frontend with `npm run build` and serve the generated `frontend/dist` assets through a static host.
-- Run the backend with a production ASGI server setup and a persistent database.
-- Set `ENVIRONMENT=production` and provide production-safe values for database, frontend URL, CORS, JWT secret, and payment provider variables.
+- Deploy the React/Vite frontend to Vercel.
+- Deploy the FastAPI backend to Render.
+- Use Supabase Postgres or another managed database for production persistence.
+- Set `VITE_API_BASE_URL` in Vercel to the Render API URL, for example `https://your-render-api.onrender.com`.
+- Keep backend secrets only in Render environment variables or local backend `.env` files.
+- See `docs/DEPLOYMENT.md` for the production architecture, environment variable boundaries, and launch checklist.
 
 ## License
 
